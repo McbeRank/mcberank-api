@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<% include ./partial/head %>
+<body>
+	<% include ./partial/navbar %>
+	<div class="container">
+		<header class="mt-4 mb-3">
+			<!-- head -->
+			<h1 class="display-5 font-weight-normal">플러그인 목록</h1>
+			<!-- description -->
+			<div id="mcberank-description" class="small"></div>
+		</header>
+
+		<!-- plugin list -->
+		<div class="mt-4 mb-5">
+			<div class="mb-3">
+				<input id="plugin_rank_filter" class="form-control" type="text" placeholder="Search ...">
+			</div>
+			<table id="plugin_rank" class="table table-sm table-hover">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">플러그인</th>
+						<th scope="col" class="text-right">버전/서버 수</th>
+						<th scope="col" class="text-right">계</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</div>
+
+	<% include ./partial/footer %>
+	
+	<script type="text/javascript">
+		/**
+		 * plugin_rank
+		 */
+		d3.json(McbeRank.files.plugins).then(function(plugins){
+			d3.json("/data/total.json").then(function(total){
+				var sum = 0;
+				plugins.forEach(function(a){ sum += a.servers });
+				var avg = Math.round(sum / total.online_servers);
+				d3.select('#mcberank-description').text("총 " + plugins.length + "종류의 플러그인이 존재하며, 서버당 평균 " + avg + "개의 플러그인을 사용합니다");
+			});
+
+			var tbody = d3.select("#plugin_rank").select("tbody");
+			var rows = tbody.selectAll("tr")
+					.data(plugins)
+				.enter().append("tr")
+					.attr("class", "row-plugin");
+
+			var cells = rows.append("td")
+				.text(function(d){ return d.plugin; });
+
+			/**
+			 * plugin_rank_filter
+			 */
+			d3.select("#plugin_rank_filter")
+				.on("keypress", function(){
+					var text = d3.select(this).node().value.toLowerCase();
+					rows.style("display", function(d){ return d.plugin.toLowerCase().indexOf(text) > -1 ? null : "none"; });
+				});
+
+			rows.append("td").append("tbody")
+					.attr("class", "float-right").selectAll("tr")
+					.data(function(d){ return d.versions; })
+				.enter().append("tr")
+					.selectAll("td")
+					.data(function(d){ return [{text: d.version, class: ""}, {text: d.servers, class: "text-right"}]; })
+				.enter().append("td")
+					.style("font-size", "0.7em")
+					.attr("class", function(d){ return d.class; })
+					.text(function(d){ return d.text; });
+
+			rows.append("td")
+				.attr("class", "text-right font-weight-bold")
+				.text(function(d){ return d.servers; });
+		});
+
+		// $('#plugin_rank_filter').on("keyup", function(){
+		// 	var value = $(this).val().toLowerCase();
+		// 	$('#plugin_rank').find('.row-plugin').filter(function(){
+		// 		$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		// 	});
+		// });
+	</script>
+</body>
+</html>
