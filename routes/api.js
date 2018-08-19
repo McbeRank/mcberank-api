@@ -1,6 +1,6 @@
 const express = require('express');
 const fs = require('fs');
-const McbeRank = require(__basedir + '/public/assets/js/McbeRank.js');
+const McbeRank = require(__basedir + '/public/assets/js/McbeRank-Utils/McbeRank.js');
 
 const router = express.Router();
 
