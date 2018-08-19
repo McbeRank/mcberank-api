@@ -69,8 +69,5 @@ public/data/online-servers.json
 public/data/plugins.json
 public/data/total.json
 
-# McbeRank libraries
-lib/
-
 # McbeRank backup files
 *.bak

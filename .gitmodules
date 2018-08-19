@@ -1,0 +1,15 @@
+[submodule "lib"]
+	path = lib
+	url = git://github.com/McbeRank/QueryService.git
+[submodule "public/assets/js/ResponsiveSVG"]
+	path = public/assets/js/ResponsiveSVG
+	url = git://github.com/McbeRank/ResponsiveSVG.git
+[submodule "public/assets/js/MineParse"]
+	path = public/assets/js/MineParse
+	url = git://github.com/McbeRank/MineParse.git
+[submodule "public/assets/js/MineChart"]
+	path = public/assets/js/MineChart
+	url = git://github.com/McbeRank/MineChart.git
+[submodule "public/assets/js/McbeRank-Utils"]
+	path = public/assets/js/McbeRank-Utils
+	url = git://github.com/McbeRank/McbeRank-Utils.git
