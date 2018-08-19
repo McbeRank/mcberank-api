@@ -7,11 +7,13 @@ Minecraft PE 서버들의 순위를 보여주는 사이트입니다.
 ## 설치 방법
 
 ### 1. NodeJS 설치
+
 McbeRank 사이트를 구동하기 위해선 NodeJS가 필히 설치되어 있어야 합니다.
 
 <br>
 
 * **Windows**
+
 https://nodejs.org 에서 윈도우용 런타임을 다운받은 후 설치해주세요.
 
 <br>
