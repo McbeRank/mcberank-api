@@ -1,6 +1,6 @@
 # McbeRank
 
-Minecraft PE 서버들의 순위를 보여주는 사이트입니다.
+Minecraft BE 서버들의 순위를 보여주는 사이트입니다.
 
 <br>
 
