@@ -1,0 +1,17 @@
+.axis {
+	opacity: 0.4;
+}
+
+.axis .domain {
+	display: none;
+}
+
+.zoom {
+	cursor: move;
+	fill: none;
+	pointer-events: all;
+}
+
+a:hover {
+  text-decoration: none !important
+}
