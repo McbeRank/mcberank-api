@@ -82,5 +82,5 @@ npm install
 
 ### 5. 실행하기
 ```bash
-sudo node app.js
+node app.js
 ```
