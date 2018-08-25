@@ -111,12 +111,10 @@
 		/**
 		 * player_list_filter
 		 */
-		$(document).ready(function(){
-			$('#player_list_filter').on("keyup", function(){
-				var value = $(this).val().toLowerCase();
-				$('#player_list').find('tbody > tr').filter(function(){
-					$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-				});
+		$('#player_list_filter').on("keyup", function(){
+			var value = $(this).val().toLowerCase();
+			$('#player_list').find('tbody > tr').filter(function(){
+				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 			});
 		});
 	</script>
