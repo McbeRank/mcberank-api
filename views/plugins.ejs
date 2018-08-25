@@ -52,15 +52,6 @@
 			var cells = rows.append("td")
 				.text(function(d){ return d.plugin; });
 
-			/**
-			 * plugin_rank_filter
-			 */
-			d3.select("#plugin_rank_filter")
-				.on("keypress", function(){
-					var text = d3.select(this).node().value.toLowerCase();
-					rows.style("display", function(d){ return d.plugin.toLowerCase().indexOf(text) > -1 ? null : "none"; });
-				});
-
 			rows.append("td").append("tbody")
 					.attr("class", "float-right").selectAll("tr")
 					.data(function(d){ return d.versions; })
@@ -77,12 +68,15 @@
 				.text(function(d){ return d.servers; });
 		});
 
-		// $('#plugin_rank_filter').on("keyup", function(){
-		// 	var value = $(this).val().toLowerCase();
-		// 	$('#plugin_rank').find('.row-plugin').filter(function(){
-		// 		$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-		// 	});
-		// });
+		/**
+		 * plugin_rank_filter
+		 */
+		$('#plugin_rank_filter').on("keyup", function(){
+			var value = $(this).val().toLowerCase();
+			$('#plugin_rank').find('tbody > tr').filter(function(){
+				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+			});
+		});
 	</script>
 </body>
 </html>
