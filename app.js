@@ -38,6 +38,6 @@ app.use('/api', api);
  */
 QueryService.start();
 
-app.listen(80, function(){
-	console.log("[McbeRank] Server is now running on port 80");
+app.listen(3500, function(){
+	console.log("[McbeRank] Server is now running on port 3500");
 });
