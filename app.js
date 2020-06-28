@@ -20,7 +20,7 @@ const logger = require(__basedir + '/config/logger.js');
  * Parse config.ini
  */
 const config = iniparser.parseSync(__basedir + '/config/config.ini');
-console.log("config.ini = " + JSON.stringify(config, null, 2));
+logger.info("config.ini = " + JSON.stringify(config, null, 2));
 
 /**
  * Initialize express app
@@ -44,7 +44,7 @@ const api = require(__basedir + '/routes/api');
 const home = require(__basedir + '/routes/home');
 
 if((config.subdomain.enable || "false").toLowerCase() == "true"){
-	console.log(`[McbeRank] Subdomain is enabled = ${config.subdomain.subdomain}`)
+	logger.info(`Subdomain is enabled = ${config.subdomain.subdomain}`)
 	app.get('/', (req, res) => res.redirect(`/${config.subdomain.subdomain}`));
 	app.use(`/${config.subdomain.subdomain}`, root);
 }else{
@@ -63,5 +63,5 @@ app.listen(
 	config.server.port || 3500,
 	config.server.bind || "0.0.0.0",
 	function(){
-		console.log(`[McbeRank] Server is now running on port ${config.server.bind}:${config.server.port}`);
+		logger.info(`Server is now running on port ${config.server.bind}:${config.server.port}`);
 	});
