@@ -14,6 +14,7 @@ const QueryService = require(__basedir + '/lib/query-service');
 const express = require('express');
 const bodyParser = require('body-parser');
 const iniparser = require('iniparser');
+const logger = require(__basedir + '/config/logger.js');
 
 /**
  * Parse config.ini
@@ -29,6 +30,11 @@ app.set("view engine", "ejs");
 app.set('json spaces', 2);
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({extended:true}));
+
+/**
+ * winston: Logging request
+ */
+app.use(logger.express);
 
 /**
  * Set up routes
