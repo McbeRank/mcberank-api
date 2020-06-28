@@ -74,7 +74,7 @@
 					.selectAll("tr")
 					.data(data)
 				.enter().append("tr")
-					.on("click", function(d){ window.location.assign("/server?host=" + d.address.host + "&port=" + d.address.port); });
+					.on("click", function(d){ window.location.assign("server?host=" + d.address.host + "&port=" + d.address.port); });
 
 			rows.append("td")
 				.text(function(d){ return d.rank; });
@@ -133,7 +133,7 @@
 				.selectAll("tr")
 					.data(data)
 				.enter().append("tr")
-					.on("click", function(d){ window.location.assign("/server?host=" + d.address.host + "&port=" + d.address.port); });
+					.on("click", function(d){ window.location.assign("server?host=" + d.address.host + "&port=" + d.address.port); });
 
 			rows.append("td")
 				.text(function(d){ return d.address.host; });

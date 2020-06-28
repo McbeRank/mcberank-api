@@ -9,31 +9,39 @@
 			<h1 class="display-5 font-weight-normal">API</h1>
 		</header>
 
-		<div class="mt-4 mb-3">
+		<div class="api mt-4 mb-3">
 			<h4>Server</h4>
-			<p>GET http://mcberank.kro.kr/api/server?host=[hostname]&port=[port]</p>
+			<p>GET /server?host=[hostname]&port=[port]</p>
 		</div>
 
-		<div class="mt-4 mb-3">
+		<div class="api mt-4 mb-3">
 			<h4>Server Rank</h4>
-			<p>GET http://mcberank.kro.kr/api/online-servers</p>
+			<p>GET /online-servers</p>
 		</div>
 
-		<div class="mt-4 mb-3">
+		<div class="api mt-4 mb-3">
 			<h4>Offline Servers</h4>
-			<p>GET http://mcberank.kro.kr/api/offline-servers</p>
+			<p>GET /offline-servers</p>
 		</div>
 
-		<div class="mt-4 mt-2">
+		<div class="api mt-4 mt-2">
 			<h4>Total</h4>
-			<p>GET http://mcberank.kro.kr/api/total</p>
+			<p>GET /total</p>
 		</div>
 
-		<div class="mt-4 mt-2">
+		<div class="api mt-4 mt-2">
 			<h4>Plugin Rank</h4>
-			<p>GET http://mcberank.kro.kr/api/plugins</p>
+			<p>GET /plugins</p>
 		</div>
 	</div>
+
 	<% include ./partial/footer %>
+
+	<script type="text/javascript">
+		$(".api > p").text(function(){
+			var api = $(this).text().split(" ");
+			return api[0] + " " + window.location.href + api[1];
+		});
+	</script>
 </body>
 </html>
