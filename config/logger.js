@@ -20,8 +20,8 @@ const logger = createLogger({
     transports: [
         new transports.Console(),
         new transports.DailyRotateFile({
-            filename: 'mcberank-%DATE%.log',
-            datePattern: 'YYYY-MM-DD-HH',
+            filename: __basedir + '/logs/mcberank_%DATE%.log',
+            datePattern: 'YYYY-MM-DD',
             zippedArchive: true,
             maxSize: '20m',
             maxFiles: '14d'
