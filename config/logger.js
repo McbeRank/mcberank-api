@@ -34,7 +34,7 @@ const logger = createLogger({
  */
 logger.express = function(req, res, next){
     res.on('finish', function(){
-        logger.info(`${req.ip} "${req.mthod} ${req.path} ${req.protocol}" ${res.statusCode}`);
+        logger.info(`${req.ip} "${req.method} ${req.path} ${req.protocol}" ${res.statusCode}`);
     });
     next();
 }

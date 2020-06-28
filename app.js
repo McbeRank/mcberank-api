@@ -59,9 +59,32 @@ root.use('/api', api);
  */
 QueryService.start();
 
-app.listen(
+const server = app.listen(
 	config.server.port || 3500,
 	config.server.bind || "0.0.0.0",
 	function(){
 		logger.info(`Server is now running on port ${config.server.bind}:${config.server.port}`);
 	});
+
+/**
+ * Handle shutdown signal (Ctrl+C / docker stop)
+ */
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);
+
+function shutdown(){
+	logger.info('Received kill signal, shutting down gracefully');
+	server.close(() => {
+		logger.info('Close server complete');
+		process.exit(0);
+	});
+
+	/**
+	 * 'Docker stop' wait for 10 seconds
+	 * so we have to shutdown server in 8s (2s margin) if possible
+	 */
+	setTimeout(() => {
+		logger.error('Could not close server in 8s, shutting down forcefully');
+		process.exit(1);
+	}, 8000);
+}
