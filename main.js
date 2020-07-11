@@ -44,10 +44,10 @@ app.use(require(__basedir + '/libs/error-handler'));
 app.use(logger.expressLogger);
 
 /**
- * Set up models
+ * Register models
  */
-const Server = require('./models/Server');
-const Plugin = require('./models/Plugin');
+require('./models/Server');
+require('./models/Plugin');
 
 /**
  * Set up routes
