@@ -1,6 +1,4 @@
 # Logs
-log
-logs
 logs/
 *.log
 npm-debug.log*
@@ -62,14 +60,5 @@ typings/
 # next.js build output
 .next
 
-# McbeRank data files
-public/data/servers
-public/data/statistics
-public/data/addresses.json
-public/data/offline-servers.json
-public/data/online-servers.json
-public/data/plugins.json
-public/data/total.json
-
-# McbeRank backup files
-*.bak
+# Vue CLI complie output
+public/
