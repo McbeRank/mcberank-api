@@ -1,10 +1,8 @@
 const winston = require('winston');
-const winstonDaily = require('winston-daily-rotate-file');
-const moment = require('moment');
 const { createLogger, format, transports } = winston;
 const { combine, timestamp, label, printf } = format;
-const iniparser = require('iniparser');
-const config = iniparser.parseSync('config/config.ini');
+const config = require(__basedir + '/libs/config');
+require('winston-daily-rotate-file');
 
 const logFormat = printf(({ level, message, label, timestamp }) => {
     return `${timestamp} [${label}] ${level}: ${message}`;
@@ -13,7 +11,7 @@ const logFormat = printf(({ level, message, label, timestamp }) => {
 const logger = createLogger({
     level: 'info',
     format: combine(
-        label({ label: config.server.name }),
+        label({ label: config.get('server.name') }),
         timestamp(),
         logFormat
     ),
@@ -32,7 +30,7 @@ const logger = createLogger({
 /**
  * Middleware for logging express request & response
  */
-logger.express = function(req, res, next){
+logger.expressLogger = function(req, res, next){
     res.on('finish', function(){
         logger.info(`${req.ip} "${req.method} ${req.path} ${req.protocol}" ${res.statusCode}`);
     });
