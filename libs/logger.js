@@ -32,7 +32,8 @@ const logger = createLogger({
  */
 logger.expressLogger = function(req, res, next){
     res.on('finish', function(){
-        logger.info(`${req.ip} "${req.method} ${req.path} ${req.protocol}" ${res.statusCode}`);
+        const ip = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.ip;
+        logger.info(`${ip} "${req.method} ${req.path} ${req.protocol}" ${res.statusCode}`);
     });
     next();
 }
