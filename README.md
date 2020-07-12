@@ -2,11 +2,22 @@
 
 # McbeRank
 
-🏆 Minecraft BE 서버들의 순위를 보여주는 사이트입니다.
+🏆 Minecraft BE 서버들의 동시 접속 및 순위를 실시간으로 보여주는 사이트입니다.
 
 <br>
 
-# 설치
+# 🎨 기능
+
+* 실시간 동시 접속 표시 & 실시간 차트
+* 서버별 동시 접속 차트 비교
+* 실시간 서버에 접속중인 플레이어 목록 확인
+* 플레이 버튼을 통한 게임 바로 접속
+* 플러그인 사용 현황
+* Docker를 사용한 설치 지원
+
+<br>
+
+# 🛠 설치
 
 McbeRank를 구동하려면 **[MongoDB](https://www.mongodb.com/)**, **[InfluxDB](https://www.influxdata.com/)** 가 설치되어 있어야 합니다.
 
@@ -14,13 +25,13 @@ McbeRank를 구동하려면 **[MongoDB](https://www.mongodb.com/)**, **[InfluxDB
 
 <br>
 
-## 🛠 Docker를 사용하여 설치하기 (권장)
+## Docker를 사용하여 설치하기 (권장 👍)
 
 [Docker를 사용한 McbeRank 설치 가이드](https://github.com/McbeRank/McbeRank-Docker/blob/master/README.md)
 
 <br>
 
-## 🛠 로컬에 설치하기
+## 로컬에 설치하기
 
 진행하기 전, NodeJS, MongoDB, InfluxDB가 설치되어 있어야 합니다.
 
@@ -57,7 +68,7 @@ McbeRank를 구동하려면 **[MongoDB](https://www.mongodb.com/)**, **[InfluxDB
 
 <br>
 
-# 설정
+# ⚙ 설정
 
 ## `config.ini` 및 환경변수
 
