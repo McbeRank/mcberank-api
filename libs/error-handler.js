@@ -2,31 +2,27 @@ const mongoose = require('mongoose');
 const { UnprocessableEntity } = require('http-errors');
 
 function errorHandler(error, req, res, next){
-	error.status = (() => {
-		switch(error.name){
-			case 'ValidationError': return 400;
-			default: return error.status || error.statusCode || 500;
-		}
-    })();
+    error = preprocessError(error);
     
+    // May have critical errors
     if(error.status == 500){
         logger.error('Internal Server Error (500) occurred while processing request');
         logger.error(`Error Name=${error.name}`);
         logger.error(`Error Message=${error.message}`);
     }
 
-    error = preprocessError(error);
-
-	res.status(error.status).json(Object.assign({
-		name: error.name,
-		message: error.message
-    }, error));
-    
-    console.log(error);
+	res.status(error.status).json(error);
 }
 
-
 function preprocessError(error){
+    switch(error.name){
+        case 'ValidationError':
+            error.status = 400;
+            break;
+        default:
+            error.status = error.status || error.statusCode || 500;
+    }
+
     if(error.name == 'ValidationError'){
         for(var e of Object.values(error.errors)){
             switch(e.path){
@@ -42,10 +38,11 @@ function preprocessError(error){
             //     value: e.value
             // };
         }
-        return error;
+    }else{
+        error.message = translateError(error);
     }
-    error.message = translateError(error);
-    return error;
+    
+    return Object.assign({ name: error.name, message: error.message }, error);
 }
 
 function translateError(e){

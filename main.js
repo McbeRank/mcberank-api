@@ -34,11 +34,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 /**
- * Set up error handler
- */
-app.use(require(__basedir + '/libs/error-handler'));
-
-/**
  * winston: Logging request
  */
 app.use(logger.expressLogger);
@@ -75,6 +70,11 @@ root.use(history({
 	disableDotRule: true
 }));
 root.use('/', express.static('public'));
+
+/**
+ * Set up error handler
+ */
+app.use(require(__basedir + '/libs/error-handler'));
 
 /**
  * Set up database
