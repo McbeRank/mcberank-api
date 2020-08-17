@@ -14,10 +14,10 @@ if((config.get('subdomain.enable') || "false").toLowerCase() == "true"){
 }else{
 	root.use('/', routes);
 }
-routes.use('/api/query', require('./routes/api/query'));
-routes.use('/api/servers', require('./routes/api/servers'));
-routes.use('/api/plugins', require('./routes/api/plugins'));
-routes.use('/api/stats', require('./routes/api/stats'));
+routes.use('/api/query', require('./api/query'));
+routes.use('/api/servers', require('./api/servers'));
+routes.use('/api/plugins', require('./api/plugins'));
+routes.use('/api/stats', require('./api/stats'));
 
 /**
  * Support history mode for Vue
