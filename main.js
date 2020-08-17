@@ -7,13 +7,8 @@
  * Initialize global variables
  */
 global.__basedir = __dirname;
-const logger = require('./libs/logger');
-global.logger = logger;
-
-/**
- * Parse config.ini
- */
-const config = require('./libs/config');
+global.logger = require('./libs/logger');
+global.config = require('./libs/config');
 
 /**
  * inject <base href=""> into index.html file
