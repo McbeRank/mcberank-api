@@ -51,17 +51,19 @@ app.use(require(__basedir + '/libs/error-handler'));
 /**
  * Setup database
  */
+logger.info('Setup database ...');
 await require('./libs/database');
 
 /**
- * Start services
+ * Start server
  */
+logger.info('Starting server ...');
 const bind = config.get('server.bind');
 const port = config.get('server.port');
 const server = app.listen(
 	port,
 	bind,
-	() => logger.info(`Express server is now running on port ${bind}:${port}`)
+	() => logger.info(`McbeRank server is now running on port ${bind}:${port}`)
 );
 
 /**
