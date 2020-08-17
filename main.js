@@ -50,10 +50,9 @@ app.use(require('./routes'));
 app.use(require(__basedir + '/libs/error-handler'));
 
 /**
- * Set up database
+ * Set up models
  */
-require('./libs/mongodb');
-require('./libs/influxdb');
+require('./models');
 
 /**
  * Start services
