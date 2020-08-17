@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const config = require(__basedir + '/libs/config');
 
 /**
  * Set up mongodb
@@ -19,12 +18,17 @@ mongoose.connect(mongodb_url.replace('${password}', password), {
 	useUnifiedTopology: true
 });
 
-mongoose.connection.on('error', error => {
-	logger.error('MongoDB: Error occured while connect to mongodb');
-	logger.error(error);
-});
-mongoose.connection.once('open', () => {
-    logger.info(`MongoDB: Successfully connected to ${mongodb_url}/${database}`.replace('${password}', '******'));
-});
+module.exports = new Promise((resolve, reject) => {
+	mongoose.connection.on('error', error => {
+		logger.error('MongoDB: Error occured while connect to mongodb');
+		logger.error(error);
 
-module.exports = require('mongoose');
+		reject(error);
+	});
+
+	mongoose.connection.once('open', () => {
+		logger.info(`MongoDB: Successfully connected to ${mongodb_url}/${database}`.replace('${password}', '******'));
+
+		resolve();
+	});
+});

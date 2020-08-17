@@ -1,5 +1,4 @@
 const Influx = require('influx');
-const config = require(__basedir + '/libs/config');
 
 const [ host, port ] = config.get('influxdb.host').split(':');
 const username = config.get('influxdb.username');
@@ -33,4 +32,4 @@ const influx = new Influx.InfluxDB({
     }
 })();
 
-module.exports = influx;
+module.exports = influx.ping(5000);
