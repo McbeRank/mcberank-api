@@ -34,10 +34,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(logger.expressLogger);
 
 /**
- * Register models
+ * Set up models
  */
-require('./models/Server');
-require('./models/Plugin');
+require('./models');
 
 /**
  * Set up routes
@@ -50,9 +49,9 @@ app.use(require('./routes'));
 app.use(require(__basedir + '/libs/error-handler'));
 
 /**
- * Set up models
+ * Setup database
  */
-require('./models');
+await require('./libs/database');
 
 /**
  * Start services
