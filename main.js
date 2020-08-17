@@ -91,13 +91,11 @@ const server = app.listen(
 /**
  * Handle shutdown signal (Ctrl+C / docker stop)
  */
-const ShutdownHandler = require(__basedir + '/libs/shutdown-handler');
-ShutdownHandler.handle(server);
+require(__basedir + '/libs/shutdown-handler').handle(server);
 
 /**
  * Start collection servers data
  */
-const ServerCollector = require('./libs/server-collector');
-ServerCollector.start();
+require('./libs/server-collector').start();
 
 })();
