@@ -1,4 +1,4 @@
 module.exports = Promise.all([
-	require('./mongodb'),
-	require('./influxdb')
+	require('./mongodb').waitForConnection(),
+	require('./influxdb').waitForConnection()
 ]);

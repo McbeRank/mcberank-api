@@ -18,7 +18,7 @@ mongoose.connect(mongodb_url.replace('${password}', password), {
 	useUnifiedTopology: true
 });
 
-module.exports = new Promise((resolve, reject) => {
+mongoose.waitForConnection = new Promise((resolve, reject) => {
 	mongoose.connection.on('error', error => {
 		logger.error('MongoDB: Error occured while connect to mongodb');
 		logger.error(error);
@@ -32,3 +32,5 @@ module.exports = new Promise((resolve, reject) => {
 		resolve();
 	});
 });
+
+module.exports = mongoose;

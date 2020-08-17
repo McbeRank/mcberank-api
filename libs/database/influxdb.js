@@ -32,4 +32,6 @@ const influx = new Influx.InfluxDB({
     }
 })();
 
-module.exports = influx.ping(5000);
+influx.waitForConnection = influx.ping(5000);
+
+module.exports = influx;
