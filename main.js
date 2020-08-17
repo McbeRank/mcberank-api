@@ -42,29 +42,7 @@ require('./models/Plugin');
 /**
  * Set up routes
  */
-const root = express.Router();
-
-if((config.get('subdomain.enable') || "false").toLowerCase() == "true"){
-	logger.info(`Subdomain is enabled = ${config.get('subdomain.subdomain')}`)
-	app.get('/', (req, res) => res.redirect(`/${config.get('subdomain.subdomain')}`));
-	app.use(`/${config.get('subdomain.subdomain')}`, root);
-}else{
-	app.use('/', root);
-}
-root.use('/api/query', require('./routes/api/query'));
-root.use('/api/servers', require('./routes/api/servers'));
-root.use('/api/plugins', require('./routes/api/plugins'));
-root.use('/api/stats', require('./routes/api/stats'));
-
-/**
- * Set up routes: Support history mode for Vue
- */
-const history = require('connect-history-api-fallback');
-root.use('/', express.static('public'));
-root.use(history({
-	disableDotRule: true
-}));
-root.use('/', express.static('public'));
+app.use(require('./routes'));
 
 /**
  * Set up error handler
