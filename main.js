@@ -17,7 +17,11 @@ const Injector = require('./libs/html-injector');
 const baseHref = config.get('subdomain.enable') == 'true'
 					? '/' + config.get('subdomain.subdomain') + '/'
 					: '/';
-await Injector.injectBaseHref(__basedir + '/public/index.html', baseHref);
+try{
+	await Injector.injectBaseHref(__basedir + '/public/index.html', baseHref);
+}catch{
+
+}
 
 /**
  * Initialize express app
