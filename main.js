@@ -34,6 +34,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(logger.expressLogger);
 
 /**
+ * Setup database
+ */
+logger.info('Setup database ...');
+await require('./libs/database');
+
+/**
  * Set up models
  */
 require('./models');
@@ -47,12 +53,6 @@ app.use(require('./routes'));
  * Set up error handler
  */
 app.use(require(__basedir + '/libs/error-handler'));
-
-/**
- * Setup database
- */
-logger.info('Setup database ...');
-await require('./libs/database');
 
 /**
  * Start server
