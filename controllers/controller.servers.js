@@ -34,6 +34,8 @@ controller.createServer = async function(req, res){
     await server.query1();
     if(!server.online) throw new UnprocessableEntity('서버가 오프라인입니다. 서버 상태를 확인해주세요.');
 
+    if(server.title !== 'MCBE_SERVER') throw new UnprocessableEntity('서버의 MOTD가 MCBE_SERVER가 아닙니다.');
+    
     await server.save();
 
     logger.info('Create server');
