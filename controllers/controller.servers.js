@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Server = mongoose.model('Server');
 const { NotFound, UnprocessableEntity } = require('http-errors');
 const controller = {};
+const config = require('../libs/config');
 
 controller.paramServer = async function(req, res, next, server){
     req.server = await Server.findOne({ slug: server })
@@ -34,6 +35,13 @@ controller.createServer = async function(req, res){
     await server.query1();
     if(!server.online) throw new UnprocessableEntity('서버가 오프라인입니다. 서버 상태를 확인해주세요.');
 
+    // Check whether the server belongs to the registrant or not
+    if(config.get('registration.verify-motd-before-registration') == 'true'){
+        var validMotd = config.get('registration.verify-motd-name');
+
+        if(server.title !== validMotd) throw new UnprocessableEntity(`서버를 추가하려면 MOTD를 ${validMotd}로 설정해주세요.`);
+    }
+    
     await server.save();
 
     logger.info('Create server');
