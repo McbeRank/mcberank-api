@@ -35,9 +35,11 @@ controller.createServer = async function(req, res){
     await server.query1();
     if(!server.online) throw new UnprocessableEntity('서버가 오프라인입니다. 서버 상태를 확인해주세요.');
 
-    if(config.get('registration.motd_check') == 'true'){
     // Check whether the server belongs to the registrant or not
-         if(server.title !== 'MCBE_SERVER') throw new UnprocessableEntity('서버의 MOTD가 MCBE_SERVER가 아닙니다.');
+    if(config.get('registration.verify-motd-before-registration') == 'true'){
+        var validMotd = config.get('registration.verify-motd-name');
+
+        if(server.title !== validMotd) throw new UnprocessableEntity(`서버를 추가하려면 MOTD를 ${validMotd}로 설정해주세요.`);
     }
     
     await server.save();
