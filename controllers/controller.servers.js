@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 const Server = mongoose.model('Server');
 const { NotFound, UnprocessableEntity } = require('http-errors');
 const controller = {};
-
-global.config = require('./config');
+const config = require('../libs/config');
 
 controller.paramServer = async function(req, res, next, server){
     req.server = await Server.findOne({ slug: server })
