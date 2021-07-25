@@ -21,8 +21,9 @@
     "moment": "^2.27.0",
     "mongoose": "^5.9.20",
     "mongoose-unique-validator": "^2.0.3",
-    "slug": "^3.3.0",
+    "slug": "^5.1.0",
     "validator": "^13.1.1",
+    "wait-for-port": "^0.0.2",
     "winston": "^3.3.3",
     "winston-daily-rotate-file": "^4.5.0"
   }
