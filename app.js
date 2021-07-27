@@ -41,7 +41,15 @@ app.use(logger.expressLogger);
  * Setup database
  */
 logger.info('Setup database ...');
-await require('./libs/database');
+
+try {
+	await require('./libs/database');
+} catch (error) {
+	logger.error('Database connection failed');
+	logger.error(error);
+
+	process.exit(1);
+}
 
 /**
  * Set up models

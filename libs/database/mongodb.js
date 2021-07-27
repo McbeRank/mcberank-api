@@ -1,24 +1,22 @@
 const mongoose = require('mongoose');
 
-/**
- * Set up mongodb
- */
 const username = config.get('mongodb.username');
 const password = config.get('mongodb.password');
 const host = config.get('mongodb.host');
 const database = config.get('mongodb.database');
 
-const mongodb_url = 'mongodb://'
-	+ (username ? username + ':' + '${password}' + '@' : '')
-	+ host;
+const mongodb = {};
 
-mongoose.connect(mongodb_url.replace('${password}', password), {
+mongoose.connect(`mongodb://${username ? username + ':' + password + '@' : ''}${host}`, {
 	dbName: database,
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 });
 
-mongoose.waitForConnection = new Promise((resolve, reject) => {
+mongodb.waitForConnection = new Promise((resolve, reject) => {
+	const displayUrl = `mongodb://${username ? username + '@' : ''}${host}/${database}`;
+    logger.info(`MongoDB: wait for connection to ${displayUrl} ...`);
+
 	mongoose.connection.on('error', error => {
 		logger.error('MongoDB: Error occured while connect to mongodb');
 		logger.error(error);
@@ -27,10 +25,12 @@ mongoose.waitForConnection = new Promise((resolve, reject) => {
 	});
 
 	mongoose.connection.once('open', () => {
-		logger.info(`MongoDB: Successfully connected to ${mongodb_url}/${database}`.replace('${password}', '******'));
+		logger.info(`MongoDB: Successfully connected to ${displayUrl}`);
 
 		resolve();
 	});
 });
 
-module.exports = mongoose;
+mongodb.mongoose = mongoose;
+
+module.exports = mongodb;

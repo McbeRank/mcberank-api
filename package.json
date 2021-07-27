@@ -2,10 +2,11 @@
   "name": "mcberank",
   "version": "1.0.0",
   "description": "Make ranking for minecraft bedrock servers",
-  "main": "main.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node main.js"
+    "start": "node app.js",
+    "start:debug": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
@@ -23,8 +24,11 @@
     "mongoose-unique-validator": "^2.0.3",
     "slug": "^5.1.0",
     "validator": "^13.1.1",
-    "wait-for-port": "^0.0.2",
+    "wait-port": "^0.2.9",
     "winston": "^3.3.3",
     "winston-daily-rotate-file": "^4.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   }
 }

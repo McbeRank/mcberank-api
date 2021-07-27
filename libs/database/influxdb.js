@@ -1,20 +1,29 @@
-const Influx = require('influx');
-const waitForPort = require('wait-for-port');
+const { InfluxDB, FieldType } = require('influx');
+const waitPort = require('wait-port');
 
-const [ host, port ] = config.get('influxdb.host').split(':');
+const [ host, portStr ] = config.get('influxdb.host').split(':');
+const port = Number(portStr);
 const username = config.get('influxdb.username');
 const password = config.get('influxdb.password');
 const database = config.get('influxdb.database');
 
-logger.info(`InfluxDB: connect to ${username}@${host}:${port}/${database}`);
-
-const influx = {};
+const influxdb = {};
 
 // influx.waitForConnection = influx.ping(5000);
-influx.waitForConnection = async () => {
-    await waitForPort(port);
+influxdb.waitForConnection = (async () => {
+    const displayUrl = `${username}@${host}:${port}/${database}`;
+    logger.info(`InfluxDB: wait for connection to ${displayUrl} ...`);
 
-    Object.assign(influx, new Influx.InfluxDB({
+    try {
+        await waitPort({ host, port, output: 'silent' });
+    } catch (error) {
+        logger.error(`InfluxDB: connection failed!`);
+        logger.error(error);
+
+        throw error;
+    }
+
+    const influx = influxdb.influx = new InfluxDB({
         host,
         port,
         username,
@@ -24,20 +33,22 @@ influx.waitForConnection = async () => {
             {
                 measurement: 'servers',
                 fields: {
-                    online: Influx.FieldType.BOOLEAN,
-                    numplayers: Influx.FieldType.INTEGER
+                    online: FieldType.BOOLEAN,
+                    numplayers: FieldType.INTEGER
                 },
                 tags: [ 'server' ]
             }
         ]
-    }));
+    });
 
     const databases = await influx.getDatabaseNames();
+
+    logger.info(`InfluxDB: Successfully connected to ${displayUrl}`);
 
     if(!databases.includes(database)){
         logger.info(`InfluxDB: database is not exists. create one: ${database}`);
         influx.createDatabase(database);
     }
-};
+})();
 
-module.exports = influx;
+module.exports = influxdb;
