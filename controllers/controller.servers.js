@@ -4,59 +4,57 @@ const { NotFound, UnprocessableEntity } = require('http-errors');
 const controller = {};
 const config = require('../libs/config');
 
-controller.paramServer = async function(req, res, next, server){
-    req.server = await Server.findOne({ slug: server })
-        .populate('plugins')
-        .exec();
-    
-    if(!req.server) return next(new NotFound(`요청한 서버 "${server}"를 찾을 수 없습니다.`));
+controller.paramServer = async function (req, res, next, server) {
+	req.server = await Server.findOne({ slug: server }).populate('plugins').exec();
 
-    next();
-}
+	if (!req.server) return next(new NotFound(`요청한 서버 "${server}"를 찾을 수 없습니다.`));
 
-controller.getServers = async function(req, res){
-    res.json((await Server.find({}).sort('rank').exec()).map(server => server.toJSON()));
-}
+	next();
+};
 
-controller.getServer = async function(req, res){
-    res.json(req.server.toJSONWithPlayers());
-}
+controller.getServers = async function (req, res) {
+	res.json((await Server.find({}).sort('rank').exec()).map(server => server.toJSON()));
+};
 
-controller.getServerDescription = async function(req, res){
-    res.json(req.server.toJSONWithPlayers()[req.params.description]);
-}
+controller.getServer = async function (req, res) {
+	res.json(req.server.toJSONWithPlayers());
+};
 
-controller.createServer = async function(req, res){
-    var server = new Server({ host: req.body.host });
-    if(req.body.port) server.port = req.body.port;
+controller.getServerDescription = async function (req, res) {
+	res.json(req.server.toJSONWithPlayers()[req.params.description]);
+};
 
-    await server.validate();
+controller.createServer = async function (req, res) {
+	var server = new Server({ host: req.body.host });
+	if (req.body.port) server.port = req.body.port;
 
-    await server.query1();
-    if(!server.online) throw new UnprocessableEntity('서버가 오프라인입니다. 서버 상태를 확인해주세요.');
+	await server.validate();
 
-    // Check whether the server belongs to the registrant or not
-    if(config.get('registration.verify-motd-before-registration') == 'true'){
-        var validMotd = config.get('registration.verify-motd-name');
+	await server.query1();
+	if (!server.online) throw new UnprocessableEntity('서버가 오프라인입니다. 서버 상태를 확인해주세요.');
 
-        if(server.title !== validMotd) throw new UnprocessableEntity(`서버를 추가하려면 MOTD를 ${validMotd}로 설정해주세요.`);
-    }
-    
-    await server.save();
+	// Check whether the server belongs to the registrant or not
+	if (config.get('registration.verify-motd-before-registration') == 'true') {
+		var validMotd = config.get('registration.verify-motd-name');
 
-    logger.info('Create server');
-    logger.info(`Host=${server.host}`);
-    logger.info(`Port=${server.port}`);
+		if (server.title !== validMotd) throw new UnprocessableEntity(`서버를 추가하려면 MOTD를 ${validMotd}로 설정해주세요.`);
+	}
 
-    // successfully created
-    res.status(201).json({
-        message: '성공적으로 서버를 추가하였습니다.'
-    });
-}
+	await server.save();
 
-controller.deleteServer = async function(req, res){
-    await req.server.delete().exec();
-    res.sendStatus(204);
-}
+	logger.info('Create server');
+	logger.info(`Host=${server.host}`);
+	logger.info(`Port=${server.port}`);
+
+	// successfully created
+	res.status(201).json({
+		message: '성공적으로 서버를 추가하였습니다.',
+	});
+};
+
+controller.deleteServer = async function (req, res) {
+	await req.server.delete().exec();
+	res.sendStatus(204);
+};
 
 module.exports = controller;

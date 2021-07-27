@@ -10,12 +10,12 @@ const mongodb = {};
 mongoose.connect(`mongodb://${username ? username + ':' + password + '@' : ''}${host}`, {
 	dbName: database,
 	useNewUrlParser: true,
-	useUnifiedTopology: true
+	useUnifiedTopology: true,
 });
 
 mongodb.waitForConnection = new Promise((resolve, reject) => {
 	const displayUrl = `mongodb://${username ? username + '@' : ''}${host}/${database}`;
-    logger.info(`MongoDB: wait for connection to ${displayUrl} ...`);
+	logger.info(`MongoDB: wait for connection to ${displayUrl} ...`);
 
 	mongoose.connection.on('error', error => {
 		logger.error('MongoDB: Error occured while connect to mongodb');

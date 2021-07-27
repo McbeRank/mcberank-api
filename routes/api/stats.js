@@ -10,10 +10,9 @@ router.param('server', controller_servers.paramServer);
 
 /**
  * GET /numplayers/:server?from=Date&to=Date&samplingInterval=10m
- * 
+ *
  * Get players stat
  */
 router.get('/:server/numplayers', controller.getNumplayersStats);
-
 
 module.exports = router;

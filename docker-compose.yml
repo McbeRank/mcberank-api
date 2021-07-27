@@ -1,41 +1,41 @@
-version: "3"
+version: '3'
 services:
-  api:
-    container_name: mcberank-api
-    build: .
-    ports:
-      - 3501:3501
-    environment:
-      - MCBERANK_MONGODB_HOST=mongodb:27017
-      - MCBERANK_INFLUXDB_HOST=influxdb:8086
-      # This variables must be SECRET.
-      # Save your private username and password into .env file.
-      # If you are not sure what to do, see .env-example
-      - MCBERANK_MONGODB_USERNAME=${MONGODB_USERNAME}
-      - MCBERANK_MONGODB_PASSWORD=${MONGODB_PASSWORD}
-      - MCBERANK_INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
-      - MCBERANK_INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
+    api:
+        container_name: mcberank-api
+        build: .
+        ports:
+            - 3501:3501
+        environment:
+            - MCBERANK_MONGODB_HOST=mongodb:27017
+            - MCBERANK_INFLUXDB_HOST=influxdb:8086
+            # This variables must be SECRET.
+            # Save your private username and password into .env file.
+            # If you are not sure what to do, see .env-example
+            - MCBERANK_MONGODB_USERNAME=${MONGODB_USERNAME}
+            - MCBERANK_MONGODB_PASSWORD=${MONGODB_PASSWORD}
+            - MCBERANK_INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
+            - MCBERANK_INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
 
-  mongodb:
-    container_name: mcberank-mongodb
-    image: mongo
-    # Uncomment to expose mongodb port
-    #ports:
-    #  - 27017:27017
-    volumes:
-      - ./data/mongodb:/data/db
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
+    mongodb:
+        container_name: mcberank-mongodb
+        image: mongo
+        # Uncomment to expose mongodb port
+        #ports:
+        #  - 27017:27017
+        volumes:
+            - ./data/mongodb:/data/db
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
+            - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
 
-  influxdb:
-    container_name: mcberank-influxdb
-    image: influxdb:1.8
-    # Uncomment to expose influxdb port
-    #ports:
-    #  - 8086:8086
-    volumes:
-      - ./data/influxdb:/var/lib/influxdb
-    environment:
-      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
-      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
+    influxdb:
+        container_name: mcberank-influxdb
+        image: influxdb:1.8
+        # Uncomment to expose influxdb port
+        #ports:
+        #  - 8086:8086
+        volumes:
+            - ./data/influxdb:/var/lib/influxdb
+        environment:
+            - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
+            - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
