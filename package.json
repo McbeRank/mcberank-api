@@ -1,34 +1,40 @@
 {
-  "name": "mcberank",
-  "version": "1.0.0",
-  "description": "Make ranking for minecraft bedrock servers",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "start:debug": "nodemon app.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "connect-history-api-fallback": "^1.6.0",
-    "express": "^4.16.3",
-    "express-asyncify": "^1.0.1",
-    "gamedig": "git+https://github.com/McbeRank/node-gamedig.git",
-    "http-errors": "^1.8.0",
-    "influx": "^5.5.2",
-    "iniparser": "^1.0.5",
-    "jsdom": "^16.3.0",
-    "moment": "^2.27.0",
-    "mongoose": "^5.9.20",
-    "mongoose-unique-validator": "^2.0.3",
-    "slug": "^5.1.0",
-    "validator": "^13.1.1",
-    "wait-port": "^0.2.9",
-    "winston": "^3.3.3",
-    "winston-daily-rotate-file": "^4.5.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.12"
-  }
+	"name": "mcberank",
+	"version": "1.0.0",
+	"description": "Make ranking for minecraft bedrock servers",
+	"main": "app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node app.js",
+		"start:debug": "nodemon app.js",
+		"lint": "prettier --check .",
+		"lint:fix": "prettier --write ."
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"connect-history-api-fallback": "^1.6.0",
+		"express": "^4.16.3",
+		"express-asyncify": "^1.0.1",
+		"gamedig": "git+https://github.com/McbeRank/node-gamedig.git",
+		"http-errors": "^1.8.0",
+		"influx": "^5.5.2",
+		"iniparser": "^1.0.5",
+		"jsdom": "^16.3.0",
+		"moment": "^2.27.0",
+		"mongoose": "^5.9.20",
+		"mongoose-unique-validator": "^2.0.3",
+		"slug": "^5.1.0",
+		"validator": "^13.1.1",
+		"wait-port": "^0.2.9",
+		"winston": "^3.3.3",
+		"winston-daily-rotate-file": "^4.5.0"
+	},
+	"devDependencies": {
+		"eslint": "^7.31.0",
+		"eslint-config-airbnb": "^18.2.1",
+		"nodemon": "^2.0.12",
+		"prettier": "^2.3.2",
+		"prettier-eslint": "^13.0.0"
+	}
 }
