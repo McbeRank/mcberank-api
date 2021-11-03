@@ -25,7 +25,7 @@
 		"mongoose": "^5.9.20",
 		"mongoose-unique-validator": "^2.0.3",
 		"slug": "^5.1.0",
-		"validator": "^13.1.1",
+		"validator": "^13.7.0",
 		"wait-port": "^0.2.9",
 		"winston": "^3.3.3",
 		"winston-daily-rotate-file": "^4.5.0"
