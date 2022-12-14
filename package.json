@@ -14,7 +14,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"connect-history-api-fallback": "^1.6.0",
-		"express": "^4.16.3",
+		"express": "^4.17.3",
 		"express-asyncify": "^1.0.1",
 		"gamedig": "git+https://github.com/McbeRank/node-gamedig.git",
 		"http-errors": "^1.8.0",
